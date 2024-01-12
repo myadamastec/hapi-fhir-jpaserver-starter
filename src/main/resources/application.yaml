@@ -14,11 +14,10 @@ spring:
     check-location: false
     baselineOnMigrate: true
   datasource:
-    url: 'jdbc:h2:file:./target/database/h2'
-    #url: jdbc:h2:mem:test_mem
-    username: sa
-    password: null
-    driverClassName: org.h2.Driver
+    url: 'jdbc:sqlserver://192.168.2.95;databaseName=FHIRServerDB-R4;encrypt=true;trustServerCertificate=true;'  # Update with your SQL Server details
+    username: dev  # SQL Server username
+    password: P@ssw0rd  # SQL Server password
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     max-active: 15
 
     # database connection pool size
@@ -28,11 +27,12 @@ spring:
     properties:
       hibernate.format_sql: false
       hibernate.show_sql: false
+      hibernate.hbm2ddl.auto: update  # Enable schema update
 
       #Hibernate dialect is automatically detected except Postgres and H2.
       #If using H2, then supply the value of ca.uhn.fhir.jpa.model.dialect.HapiFhirH2Dialect
       #If using postgres, then supply the value of ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect
-      hibernate.dialect: ca.uhn.fhir.jpa.model.dialect.HapiFhirH2Dialect
+      hibernate.dialect: org.hibernate.dialect.SQLServerDialect
   #      hibernate.hbm2ddl.auto: update
   #      hibernate.jdbc.batch_size: 20
   #      hibernate.cache.use_query_cache: false
